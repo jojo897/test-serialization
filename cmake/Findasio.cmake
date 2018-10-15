@@ -1,4 +1,4 @@
-find_path( asio_INCLUDE asio.hpp HINTS "${PROJECT_SOURCE_DIR}/dependency/asio/asio/include" "/usr/include" "/usr/local/include" "/opt/local/include" )
+find_path( asio_INCLUDE asio.hpp HINTS "${PROJECT_SOURCE_DIR}/dependency/asio/asio/include" "C:\\Users\\jss\\Downloads\\boost_1_66_0\\boost" "/usr/include" "/usr/local/include" "/opt/local/include" )
 
 if ( asio_INCLUDE )
     set( ASIO_FOUND TRUE )

@@ -10,7 +10,7 @@ set( SOURCE_DIR  "${PROJECT_SOURCE_DIR}/src" )
 #
 
 if( ${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC )
-    set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D_WIN32_WINNT=0x0601 /W4 /wd4068 /wd4702" )
+    set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D_WIN32_WINNT=0x0601 /W3 /Ox /wd4068 /wd4702" )
 endif ( )
 
 #if( NOT WIN32 )
@@ -22,6 +22,7 @@ endif ( )
 # Dependencies
 #
 set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake" )
+set(BOOST_ROOT ${PROJECT_SOURCE_DIR}/dependency/boost)
 
 find_package( boost REQUIRED )
 find_package( asio REQUIRED )
@@ -30,7 +31,7 @@ find_package( openssl REQUIRED )
 #
 # Includes
 #
-include_directories( ${INCLUDE_DIR} SYSTEM ${asio_INCLUDE} ${ssl_INCLUDE} )
+include_directories( ${INCLUDE_DIR} SYSTEM ${asio_INCLUDE} ${ssl_INCLUDE} ${BOOST_ROOT})
 
 
 #
@@ -53,7 +54,7 @@ target_link_libraries( ${STATIC_LIBRARY_NAME} LINK_PRIVATE ${ssl_LIBRARY_STATIC}
 
 # Shared Library
 set( SHARED_LIBRARY_NAME "${PROJECT_NAME}-shared" )
-add_library( ${SHARED_LIBRARY_NAME} SHARED ${MANIFEST} )
+add_library( ${SHARED_LIBRARY_NAME} SHARED ${MANIFEST})
 set_property( TARGET ${SHARED_LIBRARY_NAME} PROPERTY CXX_STANDARD 11 )
 set_property( TARGET ${SHARED_LIBRARY_NAME} PROPERTY CXX_STANDARD_REQUIRED ON )
 set_target_properties( ${SHARED_LIBRARY_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME} )
